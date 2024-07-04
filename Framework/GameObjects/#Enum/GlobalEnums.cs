@@ -23,7 +23,7 @@ namespace MyFramework.GameObjects
     public enum EventTriggerMode
     {
         // 一次性触发：仅上升沿
-        Once = 0,
+        Instant = 0,
         // 边沿触发：上升/下降沿
         Edge = 1,
 

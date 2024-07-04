@@ -1,9 +1,8 @@
 using MyFramework.GameObjects.Buff;
 using MyFramework.GameObjects.Lifecycle;
-using UnityEngine;
 
 
-namespace MyFramework.GameObjects.Behaviour
+namespace MyFramework.GameObjects.Behaviour.Skill
 {
     // 1.所有与 Entity 属性相关的技能接口
     // 伤害技能
@@ -31,7 +30,7 @@ namespace MyFramework.GameObjects.Behaviour
 
     public interface IDeBuffSkill
     {
-        BuffInfo GetBuff();
+        BuffInfo GetDeBuff();
 
     }
 

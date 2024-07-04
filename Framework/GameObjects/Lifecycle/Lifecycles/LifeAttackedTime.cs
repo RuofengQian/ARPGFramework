@@ -33,7 +33,7 @@ namespace MyFramework.GameObjects.Lifecycle
             leftTimes += value;
         }
 
-        public void DoAttack()
+        public void CostAttackTimes()
         {
             --leftTimes;
             if (leftTimes <= 0)

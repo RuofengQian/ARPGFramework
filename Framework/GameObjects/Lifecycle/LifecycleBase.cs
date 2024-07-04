@@ -7,6 +7,16 @@ namespace MyFramework.GameObjects.Lifecycle
     public abstract class LifecycleBase<TDerived> : MonoBehaviour
         where TDerived : LifecycleBase<TDerived>
     {
+        #region Init
+        private void OnEnable()
+        {
+            ResetLifecycle();
+        }
+
+        // 重置属性
+        public abstract void ResetLifecycle();
+        #endregion
+
         #region Death
         protected void Death()
         {
@@ -32,10 +42,7 @@ namespace MyFramework.GameObjects.Lifecycle
         #endregion
 
 
-        #region Poly
-        // 重置属性
-        public abstract void ResetLifecycle();
-
+        #region PolyStatic
         public static TDerived Attach(GameObject gameObject, int value)
         {
             return gameObject.AddComponent<TDerived>();

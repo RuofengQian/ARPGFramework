@@ -4,7 +4,7 @@ using MyProject.GameObjects.Tags;
 using UnityEngine;
 
 
-namespace MyFramework.GameObjects.Behaviour
+namespace MyFramework.GameObjects.Behaviour.Skill
 {
     // 说明：
     // 1) 因为全局的对象间交互逻辑是一致的，所以单独设计一个代理类来实现 Skill 的行为逻辑
@@ -81,8 +81,8 @@ namespace MyFramework.GameObjects.Behaviour
             }
             return false;
         }
-        // 4.施加 DeBuff
-        public static bool AttachDeBuff(GameObject other, BuffInfo buffInfo)
+        // 4.移除 Buff
+        public static bool RemoveBuff(GameObject other, BuffInfo buffInfo)
         {
             if (other.CompareTag(GlobalTags.TAG_ENTITY))
             {
