@@ -1,11 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 
 namespace MyFramework.GameObjects.Buff
 {
+    // ¿Éµþ¼Ó Buff
+    public interface IStackableBuff
+    {
+        int currLevel { get; }
 
+        void IncLevel(BuffInfo buff);
+        void DecLevel();
+
+    }
+
+    // 
 
 
 }

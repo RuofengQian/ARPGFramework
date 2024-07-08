@@ -1,5 +1,6 @@
 using MyFramework.GameObjects.Buff;
 using MyFramework.GameObjects.Lifecycle;
+using MyProject.GameObjects.Tags;
 using UnityEngine;
 
 
@@ -9,6 +10,23 @@ namespace MyFramework.GameObjects.Behaviour.Skill
     // 示例：班尼特Q技能————进入对友方施加+攻击力Buff，退出对友方移除该Buff
     public abstract class EdgeBuffSkill : EdgeSkillBase, IBuffSkill
     {
+        protected override bool CheckAllowSameGroupEffect(GameObject other)
+        {
+            if (
+                other.CompareTag(GlobalTags.TAG_ENTITY) ||
+                other.CompareTag(GlobalTags.TAG_INTACT_SKILL) ||
+                other.CompareTag(GlobalTags.TAG_DESTABL_STRUCT)
+                )
+            {
+                return true;
+            }
+            return false;
+        }
+        protected override bool CheckAllowDiffGroupEffect(GameObject other)
+        {
+            return false;
+        }
+
         protected override void OnSameGroupEnter(GameObject other)
         {
             SkillBehaviour.AttachBuff(other, this.GetBuff());

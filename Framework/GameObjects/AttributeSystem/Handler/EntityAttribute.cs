@@ -1,4 +1,5 @@
 using MyFramework.GameObjects.Lifecycle;
+using System;
 using UnityEngine;
 
 
@@ -26,20 +27,26 @@ namespace MyFramework.GameObjects.Attribute
 
         #region Attirbute
         // 关联对象生命周期
-        private LifeEntityHealth _lifecycle;
-        public LifeEntityHealth Lifecycle
-        {
-            get => _lifecycle;
-            private set => _lifecycle = value;
-        }
+        private LifecycleEntityHealth _lifecycle;
+        public LifecycleEntityHealth Lifecycle { get => _lifecycle; private set => _lifecycle = value; }
         #endregion
 
         #region Init
+        public void BindLifecycle(LifecycleEntityHealth lifeEntity)
+        {
+            this.Lifecycle = lifeEntity;
+        }
+
         private void Start()
         {
-            if (!gameObject.TryGetComponent<LifeEntityHealth>(out _lifecycle))
+            if( Lifecycle != null )
             {
-                Debug.LogError("[Error] 没有在 Entity 对象上找到生命周期组件，销毁属性管理器");
+                return;
+            }
+            
+            if (!gameObject.TryGetComponent<LifecycleEntityHealth>(out _lifecycle))
+            {
+                Debug.LogError("[Error] 没有在对象上找到 LifecycleEntityHealth 生命周期组件，销毁属性管理器");
                 Destroy(this);
             }
         }

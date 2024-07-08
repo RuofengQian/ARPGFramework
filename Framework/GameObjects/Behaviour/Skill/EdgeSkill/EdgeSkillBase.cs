@@ -21,6 +21,10 @@ namespace MyFramework.GameObjects.Behaviour.Skill
         }
         private void OnTriggerExit(Collider otherCollider)
         {
+            if( !contactedColliderIdSet.Contains(otherCollider.GetInstanceID()) )
+            {
+                return;
+            }
             OnExitArea(otherCollider.gameObject);
 
             contactedColliderIdSet.Remove(otherCollider.GetInstanceID());

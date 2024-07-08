@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace MyFramework.GameObjects.Attribute
 {
-    public sealed class CriticalStrike : AttributeBase, IProbAttr
+    public sealed class CriticalStrike : AttributeBase, IProbabAttr
     {
         #region Property
         // ±©»÷ÂÊ

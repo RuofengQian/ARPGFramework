@@ -1,6 +1,7 @@
 using MyFramework.GameObjects.Attribute;
 using MyFramework.GameObjects.Group;
 using MyFramework.Manager.GameTick;
+using MyProject.GameObjects.Tags;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace MyFramework.GameObjects.Behaviour.Skill
     {
         #region Attribute
         // 游戏时间管理器
-        protected static GameTickManager gameTickManager = GameTickManager.Instance;
+        protected static GameTimeManager gameTickManager = GameTimeManager.Instance;
         // 阵营管理器
         protected static GroupManager groupManager = GroupManager.Instance;
 
@@ -52,7 +53,7 @@ namespace MyFramework.GameObjects.Behaviour.Skill
             {
                 return;
             }
-            contactedColliderIdSet.Add(other.GetInstanceID());
+            contactedColliderIdSet.Add(other.GetInstanceID()); // 防止在边缘碰撞区时多次触发 OnEnter
 
             OnEnterArea(other.gameObject);
         }
@@ -73,12 +74,12 @@ namespace MyFramework.GameObjects.Behaviour.Skill
         protected virtual void OnEnterArea(GameObject other)
         {
             // 在不同阵营：施加伤害/DeBuff
-            if (InDiffGroup(other))
+            if (InDiffGroup(other) && CheckAllowDiffGroupEffect(other))
             {
                 OnDiffGroupEnter(other);
             }
             // 在相同阵营：施加治疗/Buff
-            else if (InSameGroup(other))
+            else if (InSameGroup(other) && CheckAllowSameGroupEffect(other))
             {
                 OnSameGroupEnter(other);
             }
@@ -106,6 +107,32 @@ namespace MyFramework.GameObjects.Behaviour.Skill
                 SkillBehaviour.DealHeal(other, healSkill.GetHeal());
             }
             // 不添加施加 Buff 逻辑，防止造成永久性效果
+        }
+
+        // 可以通过重写以下两个方法，实现特定的按对象类型触发逻辑
+        protected virtual bool CheckAllowDiffGroupEffect(GameObject other)
+        {
+            if( 
+                other.CompareTag(GlobalTags.TAG_ENTITY) || 
+                other.CompareTag(GlobalTags.TAG_INTACT_SKILL) ||
+                other.CompareTag(GlobalTags.TAG_DESTABL_STRUCT)
+                )
+            {
+                return true;
+            }
+            return false;
+        }
+        protected virtual bool CheckAllowSameGroupEffect(GameObject other)
+        {
+            if (
+                other.CompareTag(GlobalTags.TAG_ENTITY) ||
+                other.CompareTag(GlobalTags.TAG_INTACT_SKILL) ||
+                other.CompareTag(GlobalTags.TAG_DESTABL_STRUCT)
+                )
+            {
+                return true;
+            }
+            return false;
         }
         #endregion
 

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace MyFramework.GameObjects.Attribute
 {
-    public sealed class MoveSpeed : AttributeBase, IMagnAttr
+    public sealed class MoveSpeed : AttributeBase, IMagnificAttr
     {
         #region Property
         // 基础移动速度

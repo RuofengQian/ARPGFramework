@@ -2,7 +2,7 @@
 
 namespace MyFramework.GameObjects.Attribute
 {
-    public sealed class AttackSpeed : AttributeBase, IMagnAttr
+    public sealed class AttackSpeed : AttributeBase, IMagnificAttr
     {
         #region Property
         // »ù´¡¹¥»÷ËÙ¶È£¨Hz£©

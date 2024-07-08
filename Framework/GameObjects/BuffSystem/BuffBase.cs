@@ -1,57 +1,26 @@
 using MyFramework.GameObjects.Attribute;
-using System.Collections;
-using UnityEngine;
-using UnityEngine.Events;
 
 
 namespace MyFramework.GameObjects.Buff
 {
-    public enum BuffType
-    {
-        // 临时的
-        Temporary = 0,
-        // 恒定的
-        Constant = 1,
-    }
-
-    // 效果基类
+    // Buff 基类
     public abstract class BuffBase
     {
-        // 种类
-        private BuffType _type;
+        #region Init
+        // 观察的 Entity 属性
+        private EntityAttribute entityAttr;
 
-        public BuffType type
+        public void BindEntityAttr(EntityAttribute entityAttr)
         {
-            get => _type;
-            protected set => _type = value;
-        }
-
-
-
-        private float duration = 1f;
-
-
-        #region Construct
-        public BuffBase()
-        {
-
+            this.entityAttr = entityAttr;
         }
         #endregion
 
 
-        // 观察的 Entity 属性
-        private EntityAttribute entityAttr;
-
-        public void BindEntityAttr()
-        {
-
-        }
-
-
         // 施用效果方法
-        public abstract void OnEnable();
+        public abstract void OnEffectEnable();
         // 取消效果方法
-        public abstract void OnDisable();
+        public abstract void OnEffectDisable();
 
     }
 
